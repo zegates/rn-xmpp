@@ -155,10 +155,10 @@ RCT_EXPORT_METHOD(sendStanza:(NSString *)stanza){
     [[RNXMPPService sharedInstance] sendStanza:stanza];
 }
 
-RCT_EXPORT_METHOD(joinRoom:(NSString *)roomJID nickName:(NSString *)nickname)
+RCT_EXPORT_METHOD(joinRoom:(NSString *)roomJID nickName:(NSString *)nickname since:(NSString *)since)
 {
     [RNXMPPService sharedInstance].delegate = self;
-    [[RNXMPPService sharedInstance] joinRoom:roomJID nickName:nickname];
+    [[RNXMPPService sharedInstance] joinRoom:roomJID nickName:nickname since:since];
 }
 
 RCT_EXPORT_METHOD(leaveRoom:(NSString *)roomJID)
