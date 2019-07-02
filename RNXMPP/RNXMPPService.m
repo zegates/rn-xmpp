@@ -600,16 +600,22 @@ static DDLogLevel ddLogLevel = DDLogLevelInfo;
     [xmppRoster fetchRoster];
 }
 
--(void)joinRoom:(NSString *)roomJID nickName:(NSString *)nickname{
+-(void)joinRoom:(NSString *)roomJID nickName:(NSString *)nickname since:(NSString *)since {
         XMPPJID *ROOM_JID = [XMPPJID jidWithString:roomJID];
         XMPPRoomMemoryStorage *roomMemoryStorage = [[XMPPRoomMemoryStorage alloc] init];
         xmppRoom = [[XMPPRoom alloc] initWithRoomStorage:roomMemoryStorage jid:ROOM_JID dispatchQueue:dispatch_get_main_queue()];
         [xmppRooms setObject:xmppRoom forKey:roomJID];
         NSXMLElement *history = [NSXMLElement elementWithName:@"history"];
-        [history addAttributeWithName:@"maxstanzas" stringValue:@"0"];
+    
+        [history addAttributeWithName:@"maxstanzas" stringValue:@"100"];
+        if (since != nil) {
+            [history addAttributeWithName:@"since" stringValue:since];
+        }
+    
         [xmppRoom activate:xmppStream];
         [xmppRoom addDelegate:self delegateQueue:dispatch_get_main_queue()];
         [xmppRoom joinRoomUsingNickname:nickname history:history password:nil];
+        DDLogVerbose(@"%@: %@ - %@ %@ %@", THIS_FILE, THIS_METHOD, roomJID, nickname, since);
     }
 
 - (void)sendRoomMessage:(NSString *)roomJID message:(NSString *)message{

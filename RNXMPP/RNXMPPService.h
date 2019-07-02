@@ -68,7 +68,7 @@
 - (void)removeRoster:(NSString *)to;
 - (void)fetchRoster;
 - (void)sendStanza:(NSString *)stanza;
-- (void)joinRoom:(NSString *)roomJID nickName:(NSString *)nickname;
+- (void)joinRoom:(NSString *)roomJID nickName:(NSString *)nickname since:(NSString *)since ;
 - (void)sendRoomMessage:(NSString *)roomJID message:(NSString *)message;
 - (void)leaveRoom:(NSString *)roomJID;
 
